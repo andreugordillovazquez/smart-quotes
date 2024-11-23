@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Framer Smart Quotes Plugin
-=======
 # Smart Quotes - Framer Plugin
->>>>>>> 7a09d0a91c18f4847c4469a55386a5684bc7b0a4
 
 This plugin for Framer allows you to easily convert straight quotes into smart quotes (typographic quotes) within selected text layers. It helps improve the readability and visual appeal of your text content.
 
@@ -43,9 +39,4 @@ To develop and extend the plugin, you can modify the code as needed:
 Feel free to contribute to this project! You can submit issues or pull requests to help improve the plugin.
 
 ## License
-
-<<<<<<< HEAD
 This project is licensed under the MIT License. See the `LICENSE` file for more information.
-=======
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
->>>>>>> 7a09d0a91c18f4847c4469a55386a5684bc7b0a4
