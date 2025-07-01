@@ -11,9 +11,10 @@
     "pack": "npx framer-plugin-tools@latest pack"
   },
   "dependencies": {
-    "framer-plugin": "^2",
+    "framer-plugin": "^3.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "smartquotes": "^2.3.2",
     "smartquotes-ts": "^0.0.2",
     "vite-plugin-mkcert": "^1"
   },
@@ -22,14 +23,13 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@vitejs/plugin-react": "^4.3.1",
-    "@vitejs/plugin-react-swc": "^3",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "typescript": "^5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5",
-    "vite-plugin-framer": "^1"
+    "vite": "^6.0.0",
+    "vite-plugin-framer": "^1.0.7"
   }
 }

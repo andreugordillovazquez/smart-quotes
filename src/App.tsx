@@ -20,19 +20,28 @@ export function App() {
     // Determine whether to use singular or plural form for 'layer'
     const layer = textLayers.length === 1 ? "layer" : "layers";
 
-        // Function to handle the conversion of quotes in selected text layers
-        const handleConvertQuotes = async () => {
-            try {
-                // Store original text values and track changes
-                let changesDetected = false;
-                let noQuotesDetected = true;
+    // Function to handle the conversion of quotes in selected text layers
+    const handleConvertQuotes = async () => {
+        try {
+            // Store original text values and track changes
+            let changesDetected = false;
+            let noQuotesDetected = true;
 
-                const originalTexts = await Promise.all(
-                    textLayers.map((node) => node.getText().then((text) => ({ node, text })))
-                );
-        
-                await Promise.all(
-                    textLayers.map(async (node) => {
+            const originalTexts = await Promise.all(
+                textLayers.map(async (node) => {
+                    try {
+                        const text = await node.getText();
+                        return { node, text };
+                    } catch (error) {
+                        notifyError("Error getting text from a node.");
+                        return { node, text: null };
+                    }
+                })
+            );
+    
+            await Promise.all(
+                textLayers.map(async (node) => {
+                    try {
                         const text = await node.getText();
                         if (text !== null) {
                             const convertedText = convertToSmartQuotes(text);
@@ -40,44 +49,50 @@ export function App() {
                                 changesDetected = true;
                                 noQuotesDetected = false;
                                 await node.setText(convertedText);
-                            } else if (/['"“”‘’]/.test(text)) {
+                            } else if (/['"""'']/.test(text)) {
                                 noQuotesDetected = false;
                             }
                         }
-                    })
-                );
-        
-                if (noQuotesDetected) {
-                    const message =
-                        textLayers.length === 1
-                            ? "The selected layer does not have quotes."
-                            : "The selected layers do not have quotes.";
-                    notifyInfo(message);
-                    return;
-                }                
-        
-                if (!changesDetected) {
-                    notifyInfo("All selected text layers already contain smart quotes.");
-                    return;
-                }
-        
-                const handleUndo = async () => {
+                    } catch (error) {
+                        notifyError("Error processing a text node.");
+                        throw error;
+                    }
+                })
+            );
+    
+            if (noQuotesDetected) {
+                const message =
+                    textLayers.length === 1
+                        ? "The selected layer does not have quotes."
+                        : "The selected layers do not have quotes.";
+                notifyInfo(message);
+                return;
+            }            
+    
+            if (!changesDetected) {
+                notifyInfo("All selected text layers already contain smart quotes.");
+                return;
+            }
+    
+            const handleUndo = async () => {
+                try {
                     await Promise.all(
-                        originalTexts.map(({ node, text }) => {
+                        originalTexts.map(async ({ node, text }) => {
                             if (text !== null) {
                                 return node.setText(text);
                             }
                         })
                     );
-                };
-        
-                notifySuccess(`Successfully converted quotes in ${textLayers.length} selected ${layer}.`, handleUndo);
-            } catch (error) {
-                console.error("Error setting text for nodes: ", error);
-                notifyError("An error occurred while converting quotes. Please try again.");
-            }
-        };
-        
+                } catch (error) {
+                    notifyError("Failed to undo changes. Please try again.");
+                }
+            };
+    
+            notifySuccess(`Successfully converted quotes in ${textLayers.length} selected ${layer}.`, handleUndo);
+        } catch (error) {
+            notifyError("An error occurred while converting quotes. Please try again.");
+        }
+    };
 
     return (
         <main>
@@ -92,7 +107,7 @@ export function App() {
                 <p>You have {textLayers.length} text {layer} selected.</p>
             )}
             <button 
-                className="framer-button-primary" 
+                className="submit" 
                 onClick={handleConvertQuotes}
                 disabled={textLayers.length === 0} // Disable button if no text layers are selected
             >

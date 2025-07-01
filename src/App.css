@@ -8,3 +8,30 @@ main {
     height: 100%;
     gap: 10px;
 }
+
+.submit {
+  width: 100%;
+  color: #000;
+  background-color: #fff !important;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  line-height: 1em;
+  border: none;
+}
+
+.submit:hover {
+  background-color: #f2f2f2 !important;
+}
+
+[data-framer-theme="light"] .submit {
+  background-color: #000 !important;
+  color: #fff;
+  font-weight: 500;
+}
+
+[data-framer-theme="light"] .submit:hover {
+  background-color: #333 !important;
+}
