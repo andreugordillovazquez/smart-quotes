@@ -2,9 +2,7 @@
   "id": "f2f80f",
   "name": "Smart Quotes",
   "modes": [
-    "canvas",
-    "collection"
+    "canvas"
   ],
-  "icon": "/icon.svg",
-  "apiVersion": "3.3.0"
+  "icon": "/icon.svg"
 }
