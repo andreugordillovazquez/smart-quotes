@@ -2,7 +2,7 @@
 
 This plugin for Framer allows you to easily convert straight quotes into smart quotes (typographic quotes) within selected text layers. It helps improve the readability and visual appeal of your text content.
 
-![Plugin window screenshot](images/main.png)
+![Plugin window screenshot](images/back.png)
 
 ## Features
 
